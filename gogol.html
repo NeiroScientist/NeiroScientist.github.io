@@ -22,7 +22,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding-top: 30px;
+            padding-top: 10px;
         }
 
         .profile-container {
@@ -36,7 +36,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 44px;
-            padding: 0 20px;
+            padding: 0 0 0 10px;
         }
 
         /* Бренд LitNet */
@@ -45,7 +45,9 @@
             align-items: center;
             font-size: 28px;
             font-weight: 600;
-            margin-right: 30px;
+            margin-right: 10px;
+            margin-left: -8px;
+            margin-top: -6px;
             color: #1e1e1e;
             letter-spacing: -0.5px;
             white-space: nowrap;
@@ -62,7 +64,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Аватар с градиентной обводкой (сторис) */
+        /* Аватар кликабельный */
         .avatar-wrapper {
             width: 162px;
             height: 162px;
@@ -71,6 +73,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .avatar-wrapper:hover {
+            opacity: 0.9;
         }
         .avatar {
             width: 150px;
@@ -257,7 +265,7 @@
             flex-grow: 1;
         }
 
-        /* Modal */
+        /* Modal для поста */
         #post-modal {
             display: none;
             position: fixed;
@@ -385,7 +393,7 @@
             opacity: 1;
         }
 
-        /* Modal Subs */
+        /* Modal Subs (подписки) */
         #modal-subs {
             display: none;
             position: fixed;
@@ -418,6 +426,7 @@
             padding: 12px 16px;
             gap: 15px;
             transition: background 0.2s;
+            cursor: pointer;
         }
         .sub-item:hover {
             background-color: #fafafa;
@@ -447,6 +456,125 @@
             font-size: 14px;
         }
 
+        /* Модальное окно для аватара */
+        #avatar-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .avatar-modal-content {
+            max-width: 80vh;
+            max-height: 80vh;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        #avatar-modal .close-modal {
+            color: white;
+            font-size: 48px;
+            top: 20px;
+            right: 30px;
+        }
+
+        /* Модальное окно профиля пользователя */
+        #profile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .profile-modal-content {
+            background: white;
+            max-width: 400px;
+            width: 90%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            padding: 0 0 20px 0;
+        }
+        .profile-modal-cover {
+            height: 100px;
+            background: linear-gradient(135deg, #4f5bd5, #962fbf, #d62976);
+        }
+        .profile-modal-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            object-fit: cover;
+            margin: -50px auto 10px;
+            display: block;
+            background: white;
+        }
+        .profile-modal-info {
+            text-align: center;
+            padding: 0 20px 20px;
+        }
+        .profile-modal-name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .profile-modal-username {
+            color: #8e8e8e;
+            font-size: 15px;
+            margin: 5px 0 10px;
+        }
+        .profile-modal-bio {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 15px 0;
+            padding: 0 10px;
+        }
+        .profile-modal-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+        .profile-modal-stats div {
+            text-align: center;
+        }
+        .profile-modal-stats div b {
+            display: block;
+            font-size: 16px;
+        }
+        .profile-modal-stats div span {
+            color: #8e8e8e;
+            font-size: 13px;
+        }
+        .profile-modal-follow {
+            width: calc(100% - 40px);
+            margin: 10px 20px 0;
+        }
+
         @media (max-width: 900px) {
             .grid { grid-template-columns: repeat(2, 1fr); }
         }
@@ -455,9 +583,15 @@
             .avatar-wrapper { width: 100px; height: 100px; }
             .avatar { width: 92px; height: 92px; }
             .user-info { margin-left: 15px; }
-            .social-brand { font-size: 22px; margin-right: 15px; }
+            .social-brand { 
+                font-size: 22px; 
+                margin-right: 8px;
+                margin-left: -5px;
+                margin-top: -4px;
+            }
             .social-brand i { font-size: 26px; }
             .stats { gap: 20px; }
+            header { padding-left: 5px; }
         }
         @media (max-width: 700px) {
             .post-modal-content { flex-direction: column; }
@@ -469,12 +603,13 @@
 
 <div class="profile-container">
     <header>
-        <!-- LitNet бренд с иконкой книги -->
+        <!-- LitNet бренд -->
         <div class="social-brand">
             <i class="fas fa-book-open"></i> LitNet
         </div>
 
-        <div class="avatar-wrapper">
+        <!-- Аватар кликабельный -->
+        <div class="avatar-wrapper" onclick="openAvatarModal()">
             <img src="photo/avatar.png" class="avatar" alt="Гоголь">
         </div>
         <div class="user-info">
@@ -500,7 +635,6 @@
         <div class="tab active">
             <i class="fas fa-th"></i> Публикации
         </div>
-        <!-- Можно добавить ещё вкладки, но оставим как есть -->
     </div>
 
     <div class="grid" id="posts-grid"></div>
@@ -510,19 +644,20 @@
 <div id="modal-subs" onclick="toggleSubs(false)">
     <div class="modal-subs-content" onclick="event.stopPropagation()">
         <div class="modal-subs-header">Подписки</div>
-        <div class="sub-item">
+        <!-- При клике передаём статистику -->
+        <div class="sub-item" onclick="openProfileModal('a_pushkin', 'Александр Пушкин', 'photo/pushkin_ava.jpg', 'Солнце русской поэзии 🌞\nРодился в Москве, люблю осень и свободу.', 156, 15240, 89)">
             <div class="sub-ava"><img src="photo/pushkin_ava.jpg" alt="Пушкин"></div>
             <div class="sub-info"><b>a_pushkin</b><span>Александр Пушкин</span></div>
         </div>
-        <div class="sub-item">
+        <div class="sub-item" onclick="openProfileModal('v_zhukovsky', 'Василий Жуковский', 'photo/zhukovsky_ava.jpg', 'Поэт, переводчик, наставник Пушкина.\nРомантик, люблю баллады и мечтательность.', 87, 12002, 34)">
             <div class="sub-ava"><img src="photo/zhukovsky_ava.jpg" alt="Жуковский"></div>
             <div class="sub-info"><b>v_zhukovsky</b><span>Василий Жуковский</span></div>
         </div>
-        <div class="sub-item">
+        <div class="sub-item" onclick="openProfileModal('m_shchepkin', 'Михаил Щепкин', 'photo/shchepkin_ava.jpg', 'Великий актёр, основоположник реализма в русском театре.\nДруг Гоголя.', 43, 8754, 21)">
             <div class="sub-ava"><img src="photo/shchepkin_ava.jpg" alt="Щепкин"></div>
             <div class="sub-info"><b>m_shchepkin</b><span>Михаил Щепкин</span></div>
         </div>
-        <div class="sub-item">
+        <div class="sub-item" onclick="openProfileModal('v_belinsky', 'Виссарион Белинский', 'photo/belinsky_ava.jpg', 'Литературный критик, публицист.\nВдохновитель натуральной школы.', 112, 10435, 47)">
             <div class="sub-ava"><img src="photo/belinsky_ava.jpg" alt="Белинский"></div>
             <div class="sub-info"><b>v_belinsky</b><span>Виссарион Белинский</span></div>
         </div>
@@ -558,6 +693,34 @@
         </div>
     </div>
     <span class="close-modal" onclick="closePostModal()">&times;</span>
+</div>
+
+<!-- Модальное окно для аватара -->
+<div id="avatar-modal" onclick="closeAvatarModal()">
+    <div class="avatar-modal-content" onclick="event.stopPropagation()">
+        <img src="photo/avatar.png" alt="Гоголь">
+    </div>
+    <span class="close-modal" onclick="closeAvatarModal()">&times;</span>
+</div>
+
+<!-- Модальное окно профиля пользователя -->
+<div id="profile-modal" onclick="closeProfileModal()">
+    <div class="profile-modal-content" onclick="event.stopPropagation()">
+        <div class="profile-modal-cover"></div>
+        <img src="" alt="" class="profile-modal-avatar" id="profile-modal-avatar">
+        <div class="profile-modal-info">
+            <div class="profile-modal-name" id="profile-modal-name"></div>
+            <div class="profile-modal-username" id="profile-modal-username"></div>
+            <div class="profile-modal-bio" id="profile-modal-bio"></div>
+            <div class="profile-modal-stats">
+                <div><b id="profile-posts-count">0</b><span>публикации</span></div>
+                <div><b id="profile-followers-count">0</b><span>подписчиков</span></div>
+                <div><b id="profile-following-count">0</b><span>подписок</span></div>
+            </div>
+            <button class="btn-follow profile-modal-follow" onclick="handleProfileFollow(this)">Подписаться</button>
+        </div>
+    </div>
+    <span class="close-modal" onclick="closeProfileModal()">&times;</span>
 </div>
 
 <script>
@@ -615,6 +778,50 @@
 
     function toggleSubs(show) {
         document.getElementById('modal-subs').style.display = show ? 'flex' : 'none';
+    }
+
+    function openAvatarModal() {
+        document.getElementById('avatar-modal').style.display = 'flex';
+    }
+
+    function closeAvatarModal() {
+        document.getElementById('avatar-modal').style.display = 'none';
+    }
+
+    // Открытие модального окна профиля с передачей статистики
+    function openProfileModal(username, fullname, avatarSrc, bio, posts, followers, following) {
+        document.getElementById('profile-modal-avatar').src = avatarSrc;
+        document.getElementById('profile-modal-name').innerText = fullname;
+        document.getElementById('profile-modal-username').innerText = '@' + username;
+        document.getElementById('profile-modal-bio').innerText = bio;
+        
+        // Обновляем статистику
+        document.getElementById('profile-posts-count').innerText = posts.toLocaleString('ru-RU');
+        document.getElementById('profile-followers-count').innerText = followers.toLocaleString('ru-RU');
+        document.getElementById('profile-following-count').innerText = following.toLocaleString('ru-RU');
+        
+        // Сбрасываем состояние кнопки подписки в модалке профиля (независимо)
+        const followBtn = document.querySelector('#profile-modal .btn-follow');
+        followBtn.innerText = 'Подписаться';
+        followBtn.classList.remove('following');
+        document.getElementById('profile-modal').style.display = 'flex';
+    }
+
+    function closeProfileModal() {
+        document.getElementById('profile-modal').style.display = 'none';
+    }
+
+    // Обработчик подписки в профильном модальном окне
+    function handleProfileFollow(btn) {
+        if (btn.innerText === 'Подписаться') {
+            btn.innerText = 'Вы подписаны';
+            btn.classList.add('following');
+        } else {
+            btn.innerText = 'Подписаться';
+            btn.classList.remove('following');
+        }
+        btn.classList.add('follow-animation');
+        setTimeout(() => btn.classList.remove('follow-animation'), 200);
     }
 
     function renderPosts() {
@@ -848,6 +1055,11 @@
     window.closePostModal = closePostModal;
     window.openPostModalWithComment = openPostModalWithComment;
     window.openPostModal = openPostModal;
+    window.openAvatarModal = openAvatarModal;
+    window.closeAvatarModal = closeAvatarModal;
+    window.openProfileModal = openProfileModal;
+    window.closeProfileModal = closeProfileModal;
+    window.handleProfileFollow = handleProfileFollow;
 </script>
 
 </body>
