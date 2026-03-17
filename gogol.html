@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gogol Official</title>
+    <title>LitNet · Гоголь</title>
+    <!-- Font Awesome 6 (бесплатные иконки) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --bg-color: #fafafa;
@@ -12,124 +14,250 @@
             --border: #dbdbdb;
             --white: #ffffff;
             --heart: #ed4956;
+            --story-gradient: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
         }
 
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding-top: 30px; }
-        .profile-container { max-width: 935px; margin: 0 auto; padding: 0 20px; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding-top: 30px;
+        }
+
+        .profile-container {
+            max-width: 935px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
         /* Header & Stats */
-        header { display: flex; align-items: center; margin-bottom: 44px; padding: 0 40px; }
-        .avatar { width: 150px; height: 150px; border-radius: 50%; border: 1px solid var(--border); padding: 5px; object-fit: cover; }
-        .user-info { flex: 2; margin-left: 50px; }
-        .user-top { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
-        .username { font-size: 28px; font-weight: 300; }
-        .stats { display: flex; gap: 40px; margin-bottom: 20px; list-style: none; padding: 0; }
-        .stats li { cursor: pointer; }
-        .bio-text { line-height: 1.5; font-size: 16px; }
-
-        /* Tabs */
-        .tabs { border-top: 1px solid var(--border); display: flex; justify-content: center; gap: 60px; margin-top: 20px; }
-        .tab { padding: 15px 0; font-size: 12px; font-weight: 600; color: #8e8e8e; text-transform: uppercase; cursor: pointer; }
-        .tab.active { border-top: 1px solid black; color: black; margin-top: -1px; }
-
-        /* Grid System */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 20px; padding-bottom: 50px; }
-        .post-card { background: white; border: 1px solid var(--border); border-radius: 3px; display: flex; flex-direction: column; cursor: pointer; }
-        .post-img-container { position: relative; aspect-ratio: 1 / 1; overflow: hidden; background: #eee; border-bottom: 1px solid #efefef; }
-        .post-img-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        /* Text-based Posts */
-        .text-post { padding: 20px; display: flex; align-items: center; justify-content: center; text-align: center; font-style: italic; font-size: 14px; line-height: 1.6; height: 100%; box-sizing: border-box; }
-
-        /* Post Actions & Comments */
-        .post-actions { padding: 10px 12px; display: flex; gap: 15px; }
-        .action-btn { cursor: pointer; font-size: 20px; color: #8e8e8e; transition: color 0.2s, transform 0.2s; }
-        .action-btn.like-active { color: var(--heart); }
-        .like-animation { transform: scale(1.3); }
-        .post-info { padding: 0 12px 10px; font-size: 13px; flex-grow: 1; }
-        
-        .comment-box { border-top: 1px solid #efefef; padding: 10px 12px; display: flex; align-items: center; }
-        .comment-input { border: none; font-size: 13px; width: 100%; outline: none; background: transparent; }
-        .comment-btn { color: var(--accent); font-weight: 600; font-size: 13px; cursor: pointer; background: none; border: none; opacity: 0.5; }
-
-        /* Subs Modal */
-        #modal-subs { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
-        .modal-subs-content { background: white; width: 400px; border-radius: 12px; overflow: hidden; }
-        .modal-subs-header { padding: 10px; text-align: center; border-bottom: 1px solid var(--border); font-weight: 600; }
-        .sub-item { display: flex; align-items: center; padding: 10px 15px; gap: 15px; }
-        .sub-ava { width: 44px; height: 44px; border-radius: 50%; background: #eee; overflow: hidden; }
-	
-	    .sub-item {
+        header {
             display: flex;
             align-items: center;
-            padding: 12px 16px;
-            gap: 15px;
-            transition: background 0.2s;
+            margin-bottom: 44px;
+            padding: 0 20px;
         }
 
-        .sub-item:hover {
-            background-color: #fafafa;
+        /* Бренд LitNet */
+        .social-brand {
+            display: flex;
+            align-items: center;
+            font-size: 28px;
+            font-weight: 600;
+            margin-right: 30px;
+            color: #1e1e1e;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+            background: linear-gradient(135deg, #4f5bd5, #962fbf, #d62976);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .social-brand i {
+            font-size: 32px;
+            margin-right: 8px;
+            background: inherit;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .sub-ava {
-            width: 44px;
-            height: 44px;
+        /* Аватар с градиентной обводкой (сторис) */
+        .avatar-wrapper {
+            width: 162px;
+            height: 162px;
             border-radius: 50%;
-            background: #eee;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 1px solid var(--border);
+            background: var(--story-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        .sub-ava img {
-            width: 100%;
-            height: 100%;
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid white;
             object-fit: cover;
-            object-position: center;
             display: block;
         }
 
-        .sub-info b {
-            display: block;
-            font-size: 14px;
-            color: var(--text-main);
+        .user-info {
+            flex: 2;
+            margin-left: 30px;
+        }
+        .user-top {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .username {
+            font-size: 28px;
+            font-weight: 300;
+        }
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 20px;
+            list-style: none;
+            padding: 0;
+        }
+        .stats li {
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .stats li b {
+            font-weight: 600;
+        }
+        .bio-text {
+            line-height: 1.5;
+            font-size: 16px;
         }
 
-        .sub-info span {
-            color: #8e8e8e;
-            font-size: 14px;
-        }
-        .btn-follow.following {
-            background-color: transparent !important;
-            color: var(--text-main) !important;
-            border: 1px solid var(--border) !important;
-        }
+        /* Кнопка подписки */
         .btn-follow {
-            background-color: var(--accent) !important;
+            background: var(--accent) !important;
             color: white !important;
             border: none !important;
-            padding: 7px 20px;
+            padding: 8px 24px;
             border-radius: 8px;
             font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.2s;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
         .btn-follow:hover {
-            background-color: #0081d5 !important;
+            background: #0081d5 !important;
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0,149,246,0.3);
         }
-
-        .btn-follow:active {
-            transform: scale(0.95);
+        .btn-follow.following {
+            background: transparent !important;
+            color: var(--text-main) !important;
+            border: 1px solid var(--border) !important;
+            box-shadow: none;
+        }
+        .btn-follow.following:hover {
+            background: #f5f5f5 !important;
         }
         .follow-animation {
             transform: scale(1.05);
         }
 
-	    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .avatar { width: 80px; height: 80px; } .user-info { margin-left: 20px; } }
+        /* Tabs */
+        .tabs {
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 20px;
+        }
+        .tab {
+            padding: 15px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #8e8e8e;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .tab i {
+            font-size: 14px;
+        }
+        .tab.active {
+            border-top: 2px solid var(--text-main);
+            color: var(--text-main);
+            margin-top: -1px;
+        }
 
-        /* Модальное окно поста */
+        /* Grid System */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-top: 20px;
+            padding-bottom: 50px;
+        }
+        .post-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .post-img-container {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #eee;
+            border-bottom: 1px solid #efefef;
+        }
+        .post-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .post-card:hover .post-img-container img {
+            transform: scale(1.02);
+        }
+
+        /* Text-based Posts */
+        .text-post {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-style: italic;
+            font-size: 14px;
+            line-height: 1.6;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Post Actions & Comments */
+        .post-actions {
+            padding: 10px 12px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .action-btn {
+            cursor: pointer;
+            font-size: 22px;
+            color: #8e8e8e;
+            transition: color 0.2s, transform 0.2s;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        .action-btn i {
+            font-size: inherit;
+        }
+        .action-btn.like-active {
+            color: var(--heart);
+        }
+        .like-animation {
+            transform: scale(1.3);
+        }
+        .post-info {
+            padding: 0 12px 10px;
+            font-size: 13px;
+            flex-grow: 1;
+        }
+
+        /* Modal */
         #post-modal {
             display: none;
             position: fixed;
@@ -141,17 +269,19 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
         .post-modal-content {
             background: white;
             max-width: 900px;
             width: 90%;
             max-height: 90vh;
-            border-radius: 8px;
+            border-radius: 12px;
             display: flex;
             flex-direction: row;
             overflow: hidden;
             position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         .post-modal-media {
             flex: 1;
@@ -183,6 +313,13 @@
             padding: 16px;
             border-bottom: 1px solid var(--border);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .post-modal-header i {
+            font-size: 24px;
+            color: var(--accent);
         }
         .post-modal-comments {
             flex: 1;
@@ -195,19 +332,24 @@
             border-top: 1px solid var(--border);
         }
         .post-modal-actions .action-btn {
-            font-size: 24px;
+            font-size: 28px;
             margin-right: 16px;
         }
         .close-modal {
             position: absolute;
             top: 10px;
             right: 20px;
-            font-size: 30px;
+            font-size: 36px;
             color: white;
             cursor: pointer;
             z-index: 2100;
+            transition: transform 0.2s;
         }
-        /* Стили для комментариев */
+        .close-modal:hover {
+            transform: scale(1.1);
+        }
+
+        /* Комментарии */
         .comment-item {
             margin-bottom: 12px;
         }
@@ -220,12 +362,14 @@
             margin-top: 10px;
             border-top: 1px solid var(--border);
             padding-top: 10px;
+            align-items: center;
         }
         .comment-form input {
             flex: 1;
             border: none;
             outline: none;
             font-size: 14px;
+            padding: 8px 0;
         }
         .comment-form button {
             background: none;
@@ -233,6 +377,87 @@
             color: var(--accent);
             font-weight: 600;
             cursor: pointer;
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .comment-form button:hover {
+            opacity: 1;
+        }
+
+        /* Modal Subs */
+        #modal-subs {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-subs-content {
+            background: white;
+            width: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .modal-subs-header {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+        }
+        .sub-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 15px;
+            transition: background 0.2s;
+        }
+        .sub-item:hover {
+            background-color: #fafafa;
+        }
+        .sub-ava {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #eee;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+        .sub-ava img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .sub-info b {
+            display: block;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+        .sub-info span {
+            color: #8e8e8e;
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .avatar-wrapper { width: 100px; height: 100px; }
+            .avatar { width: 92px; height: 92px; }
+            .user-info { margin-left: 15px; }
+            .social-brand { font-size: 22px; margin-right: 15px; }
+            .social-brand i { font-size: 26px; }
+            .stats { gap: 20px; }
         }
         @media (max-width: 700px) {
             .post-modal-content { flex-direction: column; }
@@ -244,18 +469,25 @@
 
 <div class="profile-container">
     <header>
-        <div class="avatar-container"><img src="photo/avatar.png" class="avatar" alt="Gogol"></div>
+        <!-- LitNet бренд с иконкой книги -->
+        <div class="social-brand">
+            <i class="fas fa-book-open"></i> LitNet
+        </div>
+
+        <div class="avatar-wrapper">
+            <img src="photo/avatar.png" class="avatar" alt="Гоголь">
+        </div>
         <div class="user-info">
-           <div class="user-top">
-              <span class="username">nikolay_gogol</span>
-              <button id="followBtn" class="btn-follow" onclick="handleFollow()">Подписаться</button>
-           </div>
-           <ul class="stats">
-              <li><b>12</b> публикаций</li>
-              <li><b id="followersCount">8400</b> подписчиков</li>
-              <li onclick="toggleSubs(true)"><b>4</b> подписок</li>
-           </ul>
-           <div class="bio-text">
+            <div class="user-top">
+                <span class="username">nikolay_gogol</span>
+                <button id="followBtn" class="btn-follow" onclick="handleFollow()">Подписаться</button>
+            </div>
+            <ul class="stats">
+                <li><b>12</b> публикаций</li>
+                <li><b id="followersCount">8 400</b> подписчиков</li>
+                <li onclick="toggleSubs(true)"><b>4</b> подписок</li>
+            </ul>
+            <div class="bio-text">
                 <b>Николай Васильевич Гоголь</b><br>
                 Самый лучший поэт XIX века 🖋️<br>
                 📍 Полтава — Петербург — Рим<br>
@@ -265,47 +497,59 @@
     </header>
 
     <div class="tabs">
-        <div class="tab active">Публикации</div>
+        <div class="tab active">
+            <i class="fas fa-th"></i> Публикации
+        </div>
+        <!-- Можно добавить ещё вкладки, но оставим как есть -->
+    </div>
 
     <div class="grid" id="posts-grid"></div>
 </div>
 
-<!-- Modal Subs -->
+<!-- Modal Subs (подписки) -->
 <div id="modal-subs" onclick="toggleSubs(false)">
     <div class="modal-subs-content" onclick="event.stopPropagation()">
         <div class="modal-subs-header">Подписки</div>
         <div class="sub-item">
-            <div class="sub-ava"><img src="photo/pushkin_ava.jpg"></div>
-            <div><b>a_pushkin</b><br><span>Александр Пушкин</span></div>
+            <div class="sub-ava"><img src="photo/pushkin_ava.jpg" alt="Пушкин"></div>
+            <div class="sub-info"><b>a_pushkin</b><span>Александр Пушкин</span></div>
         </div>
         <div class="sub-item">
-            <div class="sub-ava"><img src="photo/zhukovsky_ava.jpg"></div>
-            <div><b>v_zhukovsky</b><br><span>Василий Жуковский</span></div>
+            <div class="sub-ava"><img src="photo/zhukovsky_ava.jpg" alt="Жуковский"></div>
+            <div class="sub-info"><b>v_zhukovsky</b><span>Василий Жуковский</span></div>
         </div>
         <div class="sub-item">
-            <div class="sub-ava"><img src="photo/shchepkin_ava.jpg"></div>
-            <div><b>m_shchepkin</b><br><span>Михаил Щепкин</span></div>
+            <div class="sub-ava"><img src="photo/shchepkin_ava.jpg" alt="Щепкин"></div>
+            <div class="sub-info"><b>m_shchepkin</b><span>Михаил Щепкин</span></div>
         </div>
         <div class="sub-item">
-            <div class="sub-ava"><img src="photo/belinsky_ava.jpg"></div>
-            <div><b>v_belinsky</b><br><span>Виссарион Белинский</span></div>
+            <div class="sub-ava"><img src="photo/belinsky_ava.jpg" alt="Белинский"></div>
+            <div class="sub-info"><b>v_belinsky</b><span>Виссарион Белинский</span></div>
         </div>
     </div>
 </div>
 
-<!-- Модальное окно для просмотра поста -->
+<!-- Модальное окно поста -->
 <div id="post-modal" onclick="closePostModal()">
     <div class="post-modal-content" onclick="event.stopPropagation()">
         <div class="post-modal-media" id="modal-media"></div>
         <div class="post-modal-details">
-            <div class="post-modal-header">nikolay_gogol</div>
+            <div class="post-modal-header">
+                <i class="fas fa-book-open"></i> nikolay_gogol
+            </div>
             <div class="post-modal-comments" id="modal-comments"></div>
             <div class="post-modal-actions">
-                <span class="action-btn" id="modal-like-btn" onclick="toggleLikeModal()">❤️</span>
-                <span class="action-btn" id="modal-comment-btn">💬</span>
-                <span class="action-btn">✈️</span>
+                <span class="action-btn" id="modal-like-btn" onclick="toggleLikeModal()">
+                    <i class="far fa-heart"></i>
+                </span>
+                <span class="action-btn" id="modal-comment-btn">
+                    <i class="far fa-comment"></i>
+                </span>
+                <span class="action-btn">
+                    <i class="far fa-paper-plane"></i>
+                </span>
                 <div style="margin-top:10px;" id="modal-likes"></div>
-                <!-- Форма добавления комментария -->
+                <!-- Форма комментария -->
                 <div class="comment-form">
                     <input type="text" id="comment-input" placeholder="Добавьте комментарий...">
                     <button onclick="addComment()">Опубликовать</button>
@@ -363,9 +607,8 @@
             btn.classList.remove('following');
             followersCount--;
         }
-        counter.innerText = followersCount.toLocaleString();
+        counter.innerText = followersCount.toLocaleString('ru-RU');
         
-        // Анимация подписки
         btn.classList.add('follow-animation');
         setTimeout(() => btn.classList.remove('follow-animation'), 200);
     }
@@ -403,9 +646,15 @@
             const actions = document.createElement('div');
             actions.className = 'post-actions';
             actions.innerHTML = `
-                <span class="action-btn ${post.liked ? 'like-active' : ''}" onclick="event.stopPropagation(); toggleLikeFromCard(${idx}, this)">❤️</span>
-                <span class="action-btn" onclick="event.stopPropagation(); openPostModalWithComment(${idx})">💬</span>
-                <span class="action-btn" onclick="event.stopPropagation()">✈️</span>
+                <span class="action-btn ${post.liked ? 'like-active' : ''}" onclick="event.stopPropagation(); toggleLikeFromCard(${idx}, this)">
+                    <i class="${post.liked ? 'fas' : 'far'} fa-heart"></i>
+                </span>
+                <span class="action-btn" onclick="event.stopPropagation(); openPostModalWithComment(${idx})">
+                    <i class="far fa-comment"></i>
+                </span>
+                <span class="action-btn" onclick="event.stopPropagation()">
+                    <i class="far fa-paper-plane"></i>
+                </span>
             `;
             card.appendChild(actions);
 
@@ -429,7 +678,14 @@
         post.liked = !post.liked;
         post.likesCount += post.liked ? 1 : -1;
         btnElement.classList.toggle('like-active', post.liked);
-        // Анимация
+        const icon = btnElement.querySelector('i');
+        if (post.liked) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+        } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
         btnElement.classList.add('like-animation');
         setTimeout(() => btnElement.classList.remove('like-animation'), 200);
         
@@ -448,7 +704,14 @@
         post.likesCount += post.liked ? 1 : -1;
         const modalLikeBtn = document.getElementById('modal-like-btn');
         modalLikeBtn.classList.toggle('like-active', post.liked);
-        // Анимация
+        const icon = modalLikeBtn.querySelector('i');
+        if (post.liked) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+        } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
         modalLikeBtn.classList.add('like-animation');
         setTimeout(() => modalLikeBtn.classList.remove('like-animation'), 200);
         
@@ -463,13 +726,30 @@
         const infoB = card.querySelector('.post-info b');
         infoB.innerText = `${post.likesCount} отметок "Нравится"`;
         const likeBtn = card.querySelector('.action-btn:first-child');
-        if (likeBtn) likeBtn.classList.toggle('like-active', post.liked);
+        const icon = likeBtn.querySelector('i');
+        if (post.liked) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+        } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
+        likeBtn.classList.toggle('like-active', post.liked);
     }
 
     function updateModalLikeDisplay() {
         if (currentPostIndex === null) return;
         const post = postsData[currentPostIndex];
-        document.getElementById('modal-like-btn').classList.toggle('like-active', post.liked);
+        const modalLikeBtn = document.getElementById('modal-like-btn');
+        const icon = modalLikeBtn.querySelector('i');
+        if (post.liked) {
+            icon.classList.remove('far');
+            icon.classList.add('fas');
+        } else {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        }
+        modalLikeBtn.classList.toggle('like-active', post.liked);
         document.getElementById('modal-likes').innerHTML = `<b>${post.likesCount} отметок "Нравится"</b>`;
     }
 
@@ -504,9 +784,7 @@
     function openPostModalWithComment(index) {
         openPostModal(index);
         const input = document.getElementById('comment-input');
-        if (input) {
-            input.focus();
-        }
+        if (input) input.focus();
     }
 
     function renderComments(comments) {
@@ -561,6 +839,7 @@
 
     renderPosts();
 
+    // Делаем функции глобальными
     window.toggleLikeModal = toggleLikeModal;
     window.addComment = addComment;
     window.toggleLikeFromCard = toggleLikeFromCard;
